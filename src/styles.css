@@ -387,6 +387,39 @@ select:focus-visible {
   transform: scale(0.97);
 }
 
+.play.is-guide::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border: 2px solid var(--shape-color);
+  border-radius: inherit;
+  pointer-events: none;
+  animation: replay-pulse 2.4s linear var(--replay-hint, 4s) infinite both;
+}
+
+@keyframes replay-pulse {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  8% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  26% {
+    opacity: 0.95;
+    transform: scale(1.16);
+  }
+  70% {
+    opacity: 0;
+    transform: scale(1.34);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.34);
+  }
+}
+
 @media (hover: hover) and (pointer: fine) {
   .play:hover {
     background: color-mix(in srgb, var(--shape-color) 86%, #000);
@@ -766,6 +799,11 @@ input[type="range"]::-moz-range-thumb {
 
   .play:active {
     transform: none;
+  }
+
+  .play.is-guide::before {
+    content: none;
+    animation: none;
   }
 
   .welcome.is-playing {

@@ -1,17 +1,18 @@
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, type CSSProperties } from "react";
 import { CedarLogo } from "./CedarLogo.tsx";
 import { Dashboard } from "./Dashboard.tsx";
-import { sceneVars } from "./geometry.ts";
+import { sceneVars, sequence } from "./geometry.ts";
 import type { Config } from "./presets.ts";
 
 type StageProps = {
   config: Config;
   playing: boolean;
   runId: number;
+  guide: boolean;
   onPlay: () => void;
 };
 
-export function Stage({ config, playing, runId, onPlay }: StageProps) {
+export function Stage({ config, playing, runId, guide, onPlay }: StageProps) {
   const motion = playing ? "is-playing" : "";
   const sceneRef = useRef<HTMLDivElement>(null);
 
@@ -64,7 +65,12 @@ export function Stage({ config, playing, runId, onPlay }: StageProps) {
             data-shape={config.shape}
           />
         </div>
-        <button type="button" className="play" onClick={onPlay}>
+        <button
+          type="button"
+          className={guide ? "play is-guide" : "play"}
+          style={{ "--replay-hint": `${sequence(config).shapeOutDelay + 640}ms` } as CSSProperties}
+          onClick={onPlay}
+        >
           {playing ? "Replay" : "Play"}
         </button>
       </div>

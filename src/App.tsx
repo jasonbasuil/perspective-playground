@@ -6,11 +6,13 @@ import { Stage } from "./Stage.tsx";
 export default function App() {
   const [config, setConfig] = useState<Config>(presets[0].config);
   const [presetId, setPresetId] = useState<PresetId | null>("cover");
-  const [played, setPlayed] = useState<Config | null>(null);
-  const [runId, setRunId] = useState(0);
+  const [played, setPlayed] = useState<Config>(presets[0].config);
+  const [runId, setRunId] = useState(1);
   const [showCode, setShowCode] = useState(false);
+  const [showGuide, setShowGuide] = useState(true);
 
   function play() {
+    setShowGuide(false);
     setPlayed(config);
     setRunId((current) => current + 1);
   }
@@ -28,9 +30,10 @@ export default function App() {
   return (
     <main className="app">
       <Stage
-        config={played ?? config}
-        playing={played !== null}
+        config={played}
+        playing
         runId={runId}
+        guide={showGuide}
         onPlay={play}
       />
       <aside className="side">

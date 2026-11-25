@@ -8,7 +8,7 @@ export function buildSnippet(config: Config): string {
   const radius = shapeById(config.shape).radius;
   const timing = sequence(config);
 
-  return `/* Play adds .is-playing, which starts this sequence.
+  return `/* .is-playing starts this sequence.
    The welcome and the dashboard share translateZ(0) and the same z-index.
    Depth behind that plane is hidden by it, and depth in front only
    makes a shape larger. scale(0) at the center is the point of nothing.
